@@ -6,7 +6,7 @@ echo "===================================="
 
 echo "Enter your specified directory: "
 read -r -e DIR
-    if [[ -z "$DIR" ]]; then
+    if [[ -e "$DIR" ]]; then
         readlink -f "$DIR"
     else
         echo "Please specify a directory..."
