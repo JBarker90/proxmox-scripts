@@ -6,7 +6,6 @@ echo "===================================="
 
 echo "Enter your specified directory: "
 read -r -e DIR
-echo "$DIR"
 
 echo "Enter the Name of the file you would like created: "
 read -r -e FILE
