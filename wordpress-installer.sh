@@ -6,6 +6,7 @@ DB_PASS="your-db-pass"
 DB_NAME="your-db-name"
 
 # Download and extract WordPress
+cd /tmp
 wget https://wordpress.org/latest.tar.gz
 tar -xzf latest.tar.gz
 sudo mv wordpress /var/www/html/
