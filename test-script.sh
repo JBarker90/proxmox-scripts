@@ -9,7 +9,7 @@ read -r -e DIR
     if [[ -e "$DIR" ]]; then
         readlink -f "$DIR"
     else
-        echo "Please specify a directory..."
+        echo "Please specify an absolute path or directory name..."
         exit 1
     fi
 
