@@ -62,7 +62,7 @@ NEW_SALTS=$(curl -s https://api.wordpress.org/secret-key/1.1/salt/)
 NEW_SALTS=$(echo "$NEW_SALTS" | sed 's/\//\\\//g')
 
 # Update wp-config.php with new salts
-cp "$WP_DIR"/wp-config-sample.php "$WP_DIR"/wp-config.php
+cp -a "$WP_DIR"/wp-config-sample.php "$WP_DIR"/wp-config.php
 sed -i "/define('AUTH_KEY',/c\$(echo \"$NEW_SALTS\" | grep 'define('AUTH_KEY''))" "$WP_DIR"/wp-config.php
 sed -i "/define('SECURE_AUTH_KEY',/c\$(echo \"$NEW_SALTS\" | grep 'define('SECURE_AUTH_KEY''))" "$WP_DIR"/wp-config.php
 sed -i "/define('LOGGED_IN_KEY',/c\$(echo \"$NEW_SALTS\" | grep 'define('LOGGED_IN_KEY''))" "$WP_DIR"/wp-config.php
