@@ -54,7 +54,8 @@ wget https://wordpress.org/latest.tar.gz -P /tmp
 tar -xzvf /tmp/latest.tar.gz -C /tmp
 mv /tmp/wordpress "$WP_DIR"
 chown -R "$WP_USER":"$WP_USER" "$WP_DIR"
-chmod -R 755 "$WP_DIR"
+find "$WP_DIR" -type d -exec chmod 755 {} \;
+find "$WP_DIR" -type f -exec chmod 644 {} \;
 
 # Generate new salts
 NEW_SALTS=$(curl -s https://api.wordpress.org/secret-key/1.1/salt/)
