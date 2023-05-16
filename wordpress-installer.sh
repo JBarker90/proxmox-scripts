@@ -8,6 +8,20 @@ DB_NAME="your-db-name"
 # Define the WordPress installation directory
 WP_DIR="/var/www/html/wordpress"
 
+help(){
+    # This Displays a Help message
+    echo "This script will install WordPress on Web Servers."
+    echo
+    echo "Syntax: wordpress-installer.sh [-h] | [-u <DB_USER>] [-p <DB_PASS>] [-n <DB_NAME>] [-d <DIR>]"
+    echo "options:"
+    echo "  -h    Print this Help message."
+    echo "  -u    This specifies the DB_USER that you would like to use."
+    echo "  -p    This specifies the DB_PASS that you would like to use."
+    echo "  -n    This specifies the DB_NAME that you would like to use."
+    echo "  -d    This specifies the DB_DIR that you would like to install WordPress."
+    echo
+}
+
 # Download and extract WordPress
 wget https://wordpress.org/latest.tar.gz -P /tmp
 tar -xzvf /tmp/latest.tar.gz -C /tmp
