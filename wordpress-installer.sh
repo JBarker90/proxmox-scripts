@@ -52,7 +52,7 @@ done
 WP_USER=$(stat -c '%U' "$WP_DIR")
 wget https://wordpress.org/latest.tar.gz -P /tmp
 tar -xzvf /tmp/latest.tar.gz -C /tmp
-mv /tmp/wordpress "$WP_DIR"
+cp -a /tmp/wordpress "$WP_DIR"
 chown -R "$WP_USER":"$WP_USER" "$WP_DIR"
 find "$WP_DIR" -type d -exec chmod 755 {} \;
 find "$WP_DIR" -type f -exec chmod 644 {} \;
@@ -73,12 +73,12 @@ sed -i "/define('LOGGED_IN_SALT',/c\$(echo \"$NEW_SALTS\" | grep 'define('LOGGED
 sed -i "/define('NONCE_SALT',/c\$(echo \"$NEW_SALTS\" | grep 'define('NONCE_SALT''))" "$WP_DIR"/wp-config.php
 
 # Create the MySQL database and user
-mysql -u root -p <<MYSQL_SCRIPT
-CREATE DATABASE $DB_NAME;
-CREATE USER '$DB_USER'@'localhost' IDENTIFIED BY '$DB_PASS';
-GRANT ALL PRIVILEGES ON $DB_NAME.* TO '$DB_USER'@'localhost';
-FLUSH PRIVILEGES;
-MYSQL_SCRIPT
+#mysql -u root -p <<MYSQL_SCRIPT
+#CREATE DATABASE $DB_NAME;
+#CREATE USER '$DB_USER'@'localhost' IDENTIFIED BY '$DB_PASS';
+#GRANT ALL PRIVILEGES ON $DB_NAME.* TO '$DB_USER'@'localhost';
+#FLUSH PRIVILEGES;
+#MYSQL_SCRIPT
 
 # Update wp-config.php with database credentials
 sed -i "s/database_name_here/$DB_NAME/" "$WP_DIR"/wp-config.php
