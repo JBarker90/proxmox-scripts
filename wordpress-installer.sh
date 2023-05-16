@@ -85,4 +85,16 @@ sed -i "s/database_name_here/$DB_NAME/" "$WP_DIR"/wp-config.php
 sed -i "s/username_here/$DB_USER/" "$WP_DIR"/wp-config.php
 sed -i "s/password_here/$DB_PASS/" "$WP_DIR"/wp-config.php
 
+# Cleaning up after download
+echo "============================="
+echo "Cleaning up..."
+echo "============================="
+rm -rf /tmp/wordpress
+rm -rf /tmp/latest.tar.gz
+
+# Done...
+echo "==============================================================="
+echo "Done..."
+echo
 echo "WordPress has been installed and new salts have been generated."
+echo "==============================================================="
