@@ -49,10 +49,11 @@ while getopts "hu:p:n:d:" option; do
 done
 
 # Download and extract WordPress
+WP_USER=$(stat -c '%U' "$WP_DIR")
 wget https://wordpress.org/latest.tar.gz -P /tmp
 tar -xzvf /tmp/latest.tar.gz -C /tmp
 mv /tmp/wordpress "$WP_DIR"
-chown -R www-data:www-data "$WP_DIR"
+chown -R "$WP_USER":"$WP_USER" "$WP_DIR"
 chmod -R 755 "$WP_DIR"
 
 # Generate new salts
