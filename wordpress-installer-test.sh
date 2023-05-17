@@ -40,6 +40,12 @@ while getopts "hu:p:n:d:" option; do
             ;;
         d) # Specifies installation DIR for WordPress
             WP_DIR="${OPTARG}"
+                if [[ -e "$WP_DIR" ]]; then
+                    readlink -f "$WP_DIR"
+                else
+                    echo "Please specify an absolute path or directory name..."
+                    exit 1
+                fi
             ;;
         \?) # If an option doesn't exist
             help
