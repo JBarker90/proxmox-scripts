@@ -39,7 +39,7 @@ while getopts "hu:p:n:d:" option; do
             DB_NAME="${OPTARG}"
             ;;
         d) # Specifies installation DIR for WordPress
-            WP_DIR="${OPTARG}"
+            WP_DIR=$(readlink -f "${OPTARG}")
                 if [[ -e "$WP_DIR" ]]; then
                     readlink -f "$WP_DIR"
                 else
