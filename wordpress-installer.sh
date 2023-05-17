@@ -55,6 +55,7 @@ tar -xzvf /tmp/latest.tar.gz -C /tmp
 cp -a /tmp/wordpress "$WP_DIR"
 cd "$WP_DIR"/wordpress || exit
 cp -a . ../
+rm -rf "$WP_DIR"/wordpress
 chown -R "$WP_USER":"$WP_USER" "$WP_DIR"
 find "$WP_DIR" -type d -exec chmod 755 {} \;
 find "$WP_DIR" -type f -exec chmod 644 {} \;
