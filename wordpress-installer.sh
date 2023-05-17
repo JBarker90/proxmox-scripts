@@ -53,6 +53,8 @@ WP_USER=$(stat -c '%U' "$WP_DIR")
 wget https://wordpress.org/latest.tar.gz -P /tmp
 tar -xzvf /tmp/latest.tar.gz -C /tmp
 cp -a /tmp/wordpress "$WP_DIR"
+cd "$WP_DIR"/wordpress || exit
+cp -a . ../
 chown -R "$WP_USER":"$WP_USER" "$WP_DIR"
 find "$WP_DIR" -type d -exec chmod 755 {} \;
 find "$WP_DIR" -type f -exec chmod 644 {} \;
