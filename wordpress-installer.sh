@@ -48,6 +48,11 @@ while getopts "hu:p:n:d:" option; do
     esac
 done
 
+if [[ $# == 0 || "${#1}" -gt 2 ]]; then
+    help
+    exit 1
+fi
+
 # Download and extract WordPress
 WP_USER=$(stat -c '%U' "$WP_DIR")
 wget https://wordpress.org/latest.tar.gz -P /tmp
