@@ -10,9 +10,12 @@ GENERATE_NEW_SALTS(){
 }
 
 OLD_SALTS=$(grep -iE 'auth|key|salt' "$WP_DIR" | grep -v '\*' | awk -F\' '{print $4}' | sed "s/.*/'&'/")
-echo -e "Your old Salts are: \n$OLD_SALTS"
+#echo -e "Your old Salts are: \n$OLD_SALTS"
 
-for salt in "${OLD_SALTS[@]}"; do
+# Store the salts in an array
+IFS=$'\n' read -r -d '' -a SALT_ARRAY <<< "$OLD_SALTS"
+
+for salt in "${SALT_ARRAY[@]}"; do
     echo "Your old Salts are: $salt"
 done
 
