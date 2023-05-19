@@ -77,7 +77,7 @@ cp -a "$WP_DIR"/wp-config-sample.php "$WP_DIR"/wp-config.php
 #sed -i "s/put your unique phrase here/$NEW_SALTS/" "$WP_DIR"/wp-config.php
 for salt in "${NEW_SALTS[@]}"
 do
-    sed "s|put your unique phrase here|$salt|g" "$WP_DIR"/wp-config.php
+    sed -i "s/'put your unique phrase here'/'$salt'/g" "$WP_DIR"/wp-config.php
 done
 
 #sed -i "/define('AUTH_KEY',/c\$(echo \"$NEW_SALTS\" | grep 'define('AUTH_KEY''))" "$WP_DIR"/wp-config.php
