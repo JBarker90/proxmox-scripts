@@ -9,10 +9,15 @@ GENERATE_NEW_SALTS(){
     echo "$NEW_SALTS"
 }
 
-OLD_SALTS=("put your unique phrase here")
+OLD_SALTS=$(grep -iE 'auth|key|salt' "$WP_DIR" | grep -v '\*' | awk -F\' '{print $4}' | sed "s/.*/'&'/")
+echo -e "Your old Salts are: \n$OLD_SALTS"
 
-for salt in "${OLD_SALTS[@]}"
-do
-    NEW_SALTS=$(GENERATE_NEW_SALTS)
-    sed -i "s/'$salt'/'$NEW_SALTS'/g" "$WP_DIR"
+for salt in "${OLD_SALTS[@]}"; do
+    echo "Your old Salts are: $salt"
 done
+
+#for salt in "${OLD_SALTS[@]}"
+#do
+#    NEW_SALTS=$(GENERATE_NEW_SALTS)
+#    sed -i "s/'$salt'/'$NEW_SALTS'/g" "$WP_DIR"
+#done
