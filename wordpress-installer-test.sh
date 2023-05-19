@@ -69,6 +69,18 @@ GENERATE_NEW_SALTS(){
 
 NEW_SALTS1=$(GENERATE_NEW_SALTS)
 NEW_SALTS2=$(GENERATE_NEW_SALTS)
+NEW_SALTS3=$(GENERATE_NEW_SALTS)
+NEW_SALTS4=$(GENERATE_NEW_SALTS)
+NEW_SALTS5=$(GENERATE_NEW_SALTS)
+NEW_SALTS6=$(GENERATE_NEW_SALTS)
+NEW_SALTS7=$(GENERATE_NEW_SALTS)
+NEW_SALTS8=$(GENERATE_NEW_SALTS)
 
 echo "Your Random string 1: $NEW_SALTS1"
 echo "Your Random string 2: $NEW_SALTS2"
+echo "Your Random string 3: $NEW_SALTS3"
+echo "Your Random string 4: $NEW_SALTS4"
+echo "Your Random string 5: $NEW_SALTS5"
+echo "Your Random string 6: $NEW_SALTS6"
+echo "Your Random string 7: $NEW_SALTS7"
+echo "Your Random string 8: $NEW_SALTS8"
