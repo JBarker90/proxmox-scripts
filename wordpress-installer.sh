@@ -75,7 +75,7 @@ GENERATE_NEW_SALTS(){
 
 # Update wp-config.php with new salts
 cp -a "$WP_DIR"/wp-config-sample.php "$WP_DIR"/wp-config.php
- sed -i "s/'put your unique phrase here'/'$NEW_SALTS'/g" "$WP_DIR"/wp-config.php
+sed -i "s/'put your unique phrase here'/'$NEW_SALTS'/g" "$WP_DIR"/wp-config.php
 
 #for salt in $NEW_SALTS
 #do
