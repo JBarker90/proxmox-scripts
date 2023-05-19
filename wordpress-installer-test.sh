@@ -59,3 +59,13 @@ echo "Your user is: $DB_USER"
 echo "Your user is: $DB_PASS"
 echo "Your user is: $DB_NAME"
 echo "Your user is: $WP_DIR"
+
+# Check Randomly Generated Values
+GENERATE_NEW_SALTS(){
+    local NEW_SALTS
+    NEW_SALTS=$(< /dev/urandom tr -dc '[:graph:]' | head -c 65)
+    echo "$NEW_SALTS"
+}
+
+echo "Your Random string 1: $NEW_SALTS"
+echo "Your Random string 2: $NEW_SALTS"
