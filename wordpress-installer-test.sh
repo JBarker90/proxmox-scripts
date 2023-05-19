@@ -67,5 +67,8 @@ GENERATE_NEW_SALTS(){
     echo "$NEW_SALTS"
 }
 
-echo "Your Random string 1: $NEW_SALTS"
-echo "Your Random string 2: $NEW_SALTS"
+NEW_SALTS1=$(GENERATE_NEW_SALTS)
+NEW_SALTS2=$(GENERATE_NEW_SALTS)
+
+echo "Your Random string 1: $NEW_SALTS1"
+echo "Your Random string 2: $NEW_SALTS2"
