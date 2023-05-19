@@ -71,16 +71,20 @@ find "$WP_DIR" -type f -exec chmod 644 {} \;
 GENERATE_NEW_SALTS(){
     local NEW_SALTS
     NEW_SALTS=$(< /dev/urandom tr -dc '[:graph:]' | head -c 65)
+    echo "$NEW_SALTS"
 }
+
+OLD_SALTS=("put your unique phrase here")
 
 # Update wp-config.php with new salts
 cp -a "$WP_DIR"/wp-config-sample.php "$WP_DIR"/wp-config.php
-sed -i "s/'put your unique phrase here'/'$NEW_SALTS'/g" "$WP_DIR"/wp-config.php
+#sed -i "s/'put your unique phrase here'/'$NEW_SALTS'/g" "$WP_DIR"/wp-config.php
 
-#for salt in $NEW_SALTS
-#do
-#    sed -i "s/'put your unique phrase here'/'$salt'/g" "$WP_DIR"/wp-config.php
-#done
+for salt in "${OLD_SALTS[@]}"
+do
+    NEW_SALTS=$(GENERATE_NEW_SALTS)
+    sed -i "s/'$salt'/'$NEW_SALTS'/g" "$WP_DIR"/wp-config.php
+done
 
 #sed "s/put your unique phrase here/${NEW_SALTS}/g" "$WP_DIR"/wp-config.php
 #sed -i "s/'put your unique phrase here'/'$NEW_SALTS'/" "$WP_DIR"/wp-config.php
