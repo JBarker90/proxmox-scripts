@@ -25,6 +25,8 @@ do
     fi
     NEW_SALTS=${NEW_SALTS_ARRAY[$salt]}
     sed -i "s/'$salt'/'$NEW_SALTS'/g" "$WP_DIR"
+    #echo "Your old Salts are: $salt"
+    #echo -e "Your new Salt is: $NEW_SALTS\n"
 done
 
 #for salt in "${SALT_ARRAY[@]}"; do
