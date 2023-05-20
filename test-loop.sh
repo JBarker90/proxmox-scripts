@@ -16,23 +16,9 @@ OLD_SALTS=$(grep -iE 'auth|key|salt' "$WP_DIR" | grep -v '\*' | awk -F\' '{print
 IFS=$'\n' read -r -d '' -a SALT_ARRAY <<< "$OLD_SALTS"
 
 for salt in "${SALT_ARRAY[@]}"; do
-    #echo "Your old Salts are: $salt"
-    NEW_SALTS1=$(GENERATE_NEW_SALTS)
-    NEW_SALTS2=$(GENERATE_NEW_SALTS)
-    NEW_SALTS3=$(GENERATE_NEW_SALTS)
-    NEW_SALTS4=$(GENERATE_NEW_SALTS)
-    NEW_SALTS5=$(GENERATE_NEW_SALTS)
-    NEW_SALTS6=$(GENERATE_NEW_SALTS)
-    NEW_SALTS7=$(GENERATE_NEW_SALTS)
-    NEW_SALTS8=$(GENERATE_NEW_SALTS)
-    echo "Your new Salt1 is: $NEW_SALTS1"
-    echo "Your new Salt2 is: $NEW_SALTS2"
-    echo "Your new Salt3 is: $NEW_SALTS3"
-    echo "Your new Salt4 is: $NEW_SALTS4"
-    echo "Your new Salt5 is: $NEW_SALTS5"
-    echo "Your new Salt6 is: $NEW_SALTS6"
-    echo "Your new Salt7 is: $NEW_SALTS7"
-    echo "Your new Salt8 is: $NEW_SALTS8"
+    echo "Your old Salts are: $salt"
+    NEW_SALTS=$(GENERATE_NEW_SALTS)
+    echo -e "Your new Salt is: $NEW_SALTS\n"
 done
 
 #for salt in "${SALT_ARRAY[@]}"; do
