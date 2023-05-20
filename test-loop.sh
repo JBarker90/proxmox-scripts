@@ -17,6 +17,8 @@ IFS=$'\n' read -r -d '' -a SALT_ARRAY <<< "$OLD_SALTS"
 
 for salt in "${SALT_ARRAY[@]}"; do
     echo "Your old Salts are: $salt"
+    #NEW_SALTS=$(GENERATE_NEW_SALTS)
+    #sed -i "s/'$salt'/'$NEW_SALTS'/g" "$WP_DIR"
 done
 
 #for salt in "${OLD_SALTS[@]}"
