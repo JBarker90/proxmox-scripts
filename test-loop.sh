@@ -15,11 +15,23 @@ OLD_SALTS=$(grep -iE 'auth|key|salt' "$WP_DIR" | grep -v '\*' | awk -F\' '{print
 # Store the salts in an array
 IFS=$'\n' read -r -d '' -a SALT_ARRAY <<< "$OLD_SALTS"
 
-for salt in "${SALT_ARRAY[@]}"; do
-    echo "Your old Salts are: $salt"
-    NEW_SALTS=$(GENERATE_NEW_SALTS)
-    echo -e "Your new Salt is: $NEW_SALTS\n"
+# Declare new array to store new salts
+declare -A NEW_SALTS_ARRAY
+
+for salt in "${SALT_ARRAY[@]}"
+do
+    if [[ -z ${NEW_SALTS_ARRAY[$salt]} ]]; then
+        NEW_SALTS_ARRAY[$salt]=$(GENERATE_NEW_SALTS)
+    fi
+    NEW_SALTS=${NEW_SALTS_ARRAY[$salt]}
+    sed -i "s/'$salt'/'$NEW_SALTS'/g" "$WP_DIR"
 done
+
+#for salt in "${SALT_ARRAY[@]}"; do
+#    echo "Your old Salts are: $salt"
+#    NEW_SALTS=$(GENERATE_NEW_SALTS)
+#    echo -e "Your new Salt is: $NEW_SALTS\n"
+#done
 
 #for salt in "${SALT_ARRAY[@]}"; do
     #echo "Your old Salts are: $salt"
@@ -39,10 +51,4 @@ done
 #    sed -i "s/'$salt'/'$NEW_SALTS6'/g" "$WP_DIR"
 #    sed -i "s/'$salt'/'$NEW_SALTS7'/g" "$WP_DIR"
 #    sed -i "s/'$salt'/'$NEW_SALTS8'/g" "$WP_DIR"
-#done
-
-#for salt in "${OLD_SALTS[@]}"
-#do
-#    NEW_SALTS=$(GENERATE_NEW_SALTS)
-#    sed -i "s/'$salt'/'$NEW_SALTS'/g" "$WP_DIR"
 #done
