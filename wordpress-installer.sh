@@ -55,6 +55,11 @@ fi
 
 # Download and extract WordPress
 WP_USER=$(stat -c '%U' "$WP_DIR")
+
+printf '\n'
+echo "Downloading the latest version of WordPress... "
+printf '\n'
+
 wget https://wordpress.org/latest.tar.gz -P /tmp
 tar -xzvf /tmp/latest.tar.gz -C /tmp
 cp -a /tmp/wordpress "$WP_DIR"
@@ -90,15 +95,19 @@ perl -i -pe '
 ' "$WP_DIR"/wp-config.php
 
 # Cleaning up after download
+printf '\n'
 echo "============================="
 echo "Cleaning up..."
 echo "============================="
 rm -rf /tmp/wordpress
 rm -rf /tmp/latest.tar.gz
+printf '\n'
 
 # Done...
+printf '\n'
 echo "==============================================================="
 echo "Done..."
 echo
 echo "WordPress has been installed and new salts have been generated."
 echo "==============================================================="
+printf '\n'
