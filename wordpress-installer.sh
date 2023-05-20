@@ -79,6 +79,16 @@ sed -i "s/database_name_here/$DB_NAME/" "$WP_DIR"/wp-config.php
 sed -i "s/username_here/$DB_USER/" "$WP_DIR"/wp-config.php
 sed -i "s/password_here/$DB_PASS/" "$WP_DIR"/wp-config.php
 
+#   Set authentication unique keys and salts in wp-config.php
+perl -i -pe '
+  BEGIN {
+    @chars = ("a" .. "z", "A" .. "Z", 0 .. 9);
+    push @chars, split //, "!@#$%^&*()-_ []{}<>~\`+=,.;:/?|";
+    sub salt { join "", map $chars[ rand @chars ], 1 .. 64 }
+  }
+  s/put your unique phrase here/salt()/ge
+' "$WP_DIR"/wp-config.php
+
 # Cleaning up after download
 echo "============================="
 echo "Cleaning up..."
