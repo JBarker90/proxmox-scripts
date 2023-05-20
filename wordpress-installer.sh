@@ -57,7 +57,9 @@ fi
 WP_USER=$(stat -c '%U' "$WP_DIR")
 
 printf '\n'
+echo "==============================================="
 echo "Downloading the latest version of WordPress... "
+echo "==============================================="
 printf '\n'
 
 wget https://wordpress.org/latest.tar.gz -P /tmp
