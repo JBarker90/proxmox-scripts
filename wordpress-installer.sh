@@ -65,39 +65,6 @@ chown -R "$WP_USER":"$WP_USER" "$WP_DIR"
 find "$WP_DIR" -type d -exec chmod 755 {} \;
 find "$WP_DIR" -type f -exec chmod 644 {} \;
 
-# Generate new salts
-#NEW_SALTS=$(curl -s https://api.wordpress.org/secret-key/1.1/salt/ | sed 's#/#_#g')
-#NEW_SALTS=$(echo "$NEW_SALTS" | sed 's/\//\\\//g') 
-GENERATE_NEW_SALTS(){
-    local NEW_SALTS
-    NEW_SALTS=$(< /dev/urandom tr -dc '[:graph:]' | head -c 65)
-    echo "$NEW_SALTS"
-}
-
-OLD_SALTS=("put your unique phrase here")
-
-# Update wp-config.php with new salts
-cp -a "$WP_DIR"/wp-config-sample.php "$WP_DIR"/wp-config.php
-#sed -i "s/'put your unique phrase here'/'$NEW_SALTS'/g" "$WP_DIR"/wp-config.php
-
-for salt in "${OLD_SALTS[@]}"
-do
-    NEW_SALTS=$(GENERATE_NEW_SALTS)
-    sed -i "s/'$salt'/'$NEW_SALTS'/g" "$WP_DIR"/wp-config.php
-done
-
-#sed "s/put your unique phrase here/${NEW_SALTS}/g" "$WP_DIR"/wp-config.php
-#sed -i "s/'put your unique phrase here'/'$NEW_SALTS'/" "$WP_DIR"/wp-config.php
-
-#sed -i "/define('AUTH_KEY',/c\$(echo \"$NEW_SALTS\" | grep 'define('AUTH_KEY''))" "$WP_DIR"/wp-config.php
-#sed -i "/define('SECURE_AUTH_KEY',/c\$(echo \"$NEW_SALTS\" | grep 'define('SECURE_AUTH_KEY''))" "$WP_DIR"/wp-config.php
-#sed -i "/define('LOGGED_IN_KEY',/c\$(echo \"$NEW_SALTS\" | grep 'define('LOGGED_IN_KEY''))" "$WP_DIR"/wp-config.php
-#sed -i "/define('NONCE_KEY',/c\$(echo \"$NEW_SALTS\" | grep 'define('NONCE_KEY''))" "$WP_DIR"/wp-config.php
-#sed -i "/define('AUTH_SALT',/c\$(echo \"$NEW_SALTS\" | grep 'define('AUTH_SALT''))" "$WP_DIR"/wp-config.php
-#sed -i "/define('SECURE_AUTH_SALT',/c\$(echo \"$NEW_SALTS\" | grep 'define('SECURE_AUTH_SALT''))" "$WP_DIR"/wp-config.php
-#sed -i "/define('LOGGED_IN_SALT',/c\$(echo \"$NEW_SALTS\" | grep 'define('LOGGED_IN_SALT''))" "$WP_DIR"/wp-config.php
-#sed -i "/define('NONCE_SALT',/c\$(echo \"$NEW_SALTS\" | grep 'define('NONCE_SALT''))" "$WP_DIR"/wp-config.php
-
 # Create the MySQL database and user
 #mysql -u root -p <<MYSQL_SCRIPT
 #CREATE DATABASE $DB_NAME;
@@ -106,7 +73,8 @@ done
 #FLUSH PRIVILEGES;
 #MYSQL_SCRIPT
 
-# Update wp-config.php with database credentials
+# Update and create new wp-config.php with database credentials
+cp -a "$WP_DIR"/wp-config-sample.php "$WP_DIR"/wp-config.php
 sed -i "s/database_name_here/$DB_NAME/" "$WP_DIR"/wp-config.php
 sed -i "s/username_here/$DB_USER/" "$WP_DIR"/wp-config.php
 sed -i "s/password_here/$DB_PASS/" "$WP_DIR"/wp-config.php
