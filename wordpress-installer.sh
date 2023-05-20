@@ -61,7 +61,7 @@ echo "Downloading the latest version of WordPress... "
 printf '\n'
 
 wget https://wordpress.org/latest.tar.gz -P /tmp
-tar -xzvf /tmp/latest.tar.gz -C /tmp
+tar -xzf /tmp/latest.tar.gz -C /tmp
 cp -a /tmp/wordpress "$WP_DIR"
 cd "$WP_DIR"/wordpress || exit
 cp -a . ../
