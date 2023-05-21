@@ -72,7 +72,23 @@ chown -R "$WP_USER":"$WP_USER" "$WP_DIR"
 find "$WP_DIR" -type d -exec chmod 755 {} \;
 find "$WP_DIR" -type f -exec chmod 644 {} \;
 
-# Create the MySQL database and user
+# Check if the database and user exist
+# Create the MySQL database and user if it doesn't
+if sudo mysql -e "use $DB_NAME" >/dev/null 2>&1; then
+    echo "======================================="
+    echo "The database $DB_NAME already exists..."
+    echo "Skipping..."
+    echo "======================================="
+else
+    echo "mysql -u root -p <<MYSQL_SCRIPT
+    CREATE DATABASE $DB_NAME;
+    CREATE USER '$DB_USER'@'localhost' IDENTIFIED BY '$DB_PASS';
+    GRANT ALL PRIVILEGES ON $DB_NAME.* TO '$DB_USER'@'localhost';
+    FLUSH PRIVILEGES;
+    MYSQL_SCRIPT"
+fi
+
+
 #mysql -u root -p <<MYSQL_SCRIPT
 #CREATE DATABASE $DB_NAME;
 #CREATE USER '$DB_USER'@'localhost' IDENTIFIED BY '$DB_PASS';
