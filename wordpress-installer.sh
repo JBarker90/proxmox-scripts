@@ -80,10 +80,14 @@ if sudo mysql -e "use $DB_NAME" >/dev/null 2>&1; then
     echo "Skipping..."
     echo "======================================="
 else
+    echo "======================================="
+    echo "Creating new database $DB_NAME..."
     sudo mysql -e "CREATE DATABASE $DB_NAME DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;"
     sudo mysql -e "CREATE USER '$DB_USER'@'%' IDENTIFIED BY '$DB_PASS';"
     sudo mysql -e "GRANT ALL PRIVILEGES ON $DB_NAME.* TO '$DB_USER'@'%';"
     sudo mysql -e "FLUSH PRIVILEGES;"
+    echo "Done..."
+    echo "======================================="
 fi
 
 # Update and create new wp-config.php with database credentials
